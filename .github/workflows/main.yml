@@ -1,2 +1,21 @@
-- name: GitHub Readme Stats Action
-  uses: stats-organization/github-readme-stats-action@v1.1.0
+name: Update GitHub Readme Stats
+
+on:
+  schedule:
+    # Executa todo dia à meia-noite
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Permite rodar manualmente
+
+jobs:
+  update-readme-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: GitHub Readme Stats Action
+        uses: stats-organization/github-readme-stats-action@v1.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "chore: update README stats"
